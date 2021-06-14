@@ -1,7 +1,9 @@
+import Header from "./components/Header/Header";
+
 export default function App() {
    return (
       <div>
-         <h1 className='text-blue'>Driftchirp</h1>
+         <Header />
       </div>
    );
 }
