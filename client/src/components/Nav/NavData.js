@@ -3,25 +3,25 @@ import { FaHome, FaHashtag, FaBell, FaUser } from 'react-icons/fa';
 export const NavData = [
    {
       id: 1,
-      link: 'home',
+      link: '/home',
       text: 'Home',
       icon: <FaHome />,
    },
    {
       id: 2,
-      link: 'explore',
+      link: '/explore',
       text: 'Explore',
       icon: <FaHashtag />,
    },
    {
       id: 3,
-      link: 'notifiactions',
+      link: '/notifiactions',
       text: 'Notifications',
       icon: <FaBell />,
    },
    {
       id: 4,
-      link: 'profile',
+      link: '/profile',
       text: 'Profile',
       icon: <FaUser />,
    },

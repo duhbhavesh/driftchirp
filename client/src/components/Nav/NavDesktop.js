@@ -5,14 +5,14 @@ import { Link } from 'react-router-dom';
 export default function NavDesktop() {
    return (
       <>
-         <div className='hidden md:flex md:w-56 justify-center bg-black m-4 rounded-md mr-4'>
-            <div className='flex flex-col justify-between text-white py-4 h-auto'>
+         <div className='hidden md:flex md:w-56 justify-center bg-white-dark dark:bg-black m-4 rounded-md mr-4'>
+            <div className='flex flex-col justify-between py-4 h-auto'>
                <nav className='mt-5 px-2 h-80'>
                   {NavData.map((navlink) => {
                      return (
                         <>
                            <Link
-                              className='group flex items-center px-2 py-2 mb-4 text-base leading-6 font-semibold rounded-full hover:bg-blue-light text-white'
+                              className='group flex items-center px-2 py-2 mb-4 text-base leading-6 font-semibold rounded-full text-black-dark dark:text-white hover:bg-blue-light hover:text-white'
                               key={navlink.id}
                               to={navlink.link}>
                               <span className='text-xl'>{navlink.icon}</span>
@@ -37,7 +37,7 @@ export default function NavDesktop() {
                            />
                         </div>
                         <div className='ml-3'>
-                           <p className='text-base leading-6 font-medium text-white'>
+                           <p className='text-base leading-6 font-medium text-black-dark dark:text-white'>
                               Bhavesh Kasturi
                            </p>
                            <p className='text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150'>

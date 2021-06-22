@@ -5,7 +5,7 @@ import { AiOutlineRetweet } from 'react-icons/ai';
 export default function Tweet() {
    return (
       <>
-         <article className='flex bg-black-light m-4 rounded-md'>
+         <article className='flex bg-white dark:bg-black-light text-black-dark dark:text-white m-4 rounded-md'>
             <div class='flex flex-shrink-0 p-4 pb-0'>
                <a href='/' class='flex-shrink-0 block'>
                   <div class='flex items-center'>
@@ -22,7 +22,7 @@ export default function Tweet() {
             <div className='flex flex-col'>
                <div class='ml-2 mt-3'>
                   <div className='flex items-center'>
-                     <span class='text-base leading-6 font-medium text-white'>
+                     <span class='text-base leading-6 font-medium'>
                         Bhavesh Kasturi
                      </span>
                      <span class='ml-2 text-sm font-medium text-gray-400'>
@@ -30,7 +30,7 @@ export default function Tweet() {
                      </span>
                   </div>
 
-                  <p class='text-base width-auto font-medium text-white flex-shrink'>
+                  <p class='text-base width-auto font-medium flex-shrink'>
                      The art of programming is the skill of controlling
                      complexity. - Eloquent JavaScript
                      <span className='text-blue'> #DEVCommunity</span>
