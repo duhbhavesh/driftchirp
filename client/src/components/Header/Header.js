@@ -4,7 +4,7 @@ import DarkModeButton from '../Buttons/DarkModeButton';
 export default function Header() {
    return (
       <>
-         <header className='bg-white dark:bg-black'>
+         <header className='bg-white-dark dark:bg-black'>
             <div className='container mx-auto flex p-2 pl-8 pr-8 md:flex-row justify-between items-center'>
                <Link
                   to='/home'
