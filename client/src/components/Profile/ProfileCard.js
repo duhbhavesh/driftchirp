@@ -9,19 +9,20 @@ export default function ProfileCard() {
    return (
       <>
          <ProfileHeader />
-         <ProfileCover />
-         <div className='p-4'>
-            <div className='relative flex w-full'>
-               <div className='flex flex-1 -mt-24'>
-                  <ProfileImage />
-               </div>
-               <div className='flex flex-col text-right'>
-                  <ProfileEditButton />
+         <div className='p-2 bg-white dark:bg-black-light rounded-md'>
+            <ProfileCover />
+            <div className='p-4'>
+               <div className='relative flex w-full'>
+                  <div className='flex flex-1 -mt-24'>
+                     <ProfileImage />
+                  </div>
+                  <div className='flex flex-col text-right'>
+                     <ProfileEditButton />
+                  </div>
                </div>
             </div>
+            <ProfileBio />
          </div>
-         <ProfileBio />
-         <hr className='dark:border-black-light'></hr>
       </>
    );
 }

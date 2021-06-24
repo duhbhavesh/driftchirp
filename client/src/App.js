@@ -4,6 +4,8 @@ import { Routes, Route } from 'react-router-dom';
 import Login from './pages/Auth/LogIn';
 import SignUp from './pages/Auth/SignUp';
 import Home from './pages/Home/Home';
+import Explore from './pages/Explore/Explore';
+import Notifications from './pages/Notifications/Notifications';
 import Profile from './pages/Profile/Profile';
 
 export default function App() {
@@ -27,6 +29,8 @@ export default function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<SignUp />} />
             <Route path='/home' element={<Home />} />
+            <Route path='/explore' element={<Explore />} />
+            <Route path='/notifications' element={<Notifications />} />
             <Route path='/profile' element={<Profile />} />
          </Routes>
       </div>

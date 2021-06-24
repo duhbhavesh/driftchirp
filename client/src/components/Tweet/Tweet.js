@@ -5,7 +5,7 @@ import { AiOutlineRetweet } from 'react-icons/ai';
 export default function Tweet() {
    return (
       <>
-         <article className='flex bg-white dark:bg-black-light text-black-dark dark:text-white m-4 rounded-md'>
+         <article className='flex bg-white dark:bg-black-light text-black-dark dark:text-white m-3 rounded-md'>
             <div className='flex flex-shrink-0 p-4 pb-0'>
                <a href='/' className='flex-shrink-0 block'>
                   <div className='flex items-center'>

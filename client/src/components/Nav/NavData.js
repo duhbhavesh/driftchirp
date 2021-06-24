@@ -15,7 +15,7 @@ export const NavData = [
    },
    {
       id: 3,
-      link: '/notifiactions',
+      link: '/notifications',
       text: 'Notifications',
       icon: <FaBell />,
    },
