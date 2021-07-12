@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { setLocalStorage } from '../../common/utils/utils';
 import { API_ENDPOINT } from '../../common/utils/utils';
@@ -43,6 +43,8 @@ export const handleUserSignUp = createAsyncThunk(
    },
 );
 
+export const handleUserSignOut = createAction('user/handleUserSignOut');
+
 export const handleFetchUser = createAsyncThunk(
    'user/handleFetchUser',
    async ({ username, token }) => {
@@ -61,8 +63,14 @@ export const handleFetchUser = createAsyncThunk(
 const initialState = {
    currentUser: null,
    token: null,
-   error: null,
-   status: 'idle',
+   signUp: {
+      signUpStatus: 'idle',
+      signUpError: '',
+   },
+   signIn: {
+      signInStatus: 'idle',
+      signInError: '',
+   },
 };
 
 const userSlice = createSlice({
@@ -78,29 +86,43 @@ const userSlice = createSlice({
    },
    extraReducers: {
       [handleUserSignIn.pending]: (state, action) => {
-         state.status = 'loading';
+         state.signIn.signInStatus = 'loading';
       },
       [handleUserSignIn.fulfilled]: (state, action) => {
          state.currentUser = action.payload.user;
          state.token = action.payload.token;
-         state.error = '';
+         state.signIn.signInError = '';
          setLocalStorage(action.payload.user, action.payload.token);
-         state.status = 'success';
+         state.signIn.signInStatus = 'signInSuccess';
       },
       [handleUserSignIn.rejected]: (state, action) => {
-         state.error = action.payload;
-         state.status = 'error';
+         state.signIn.signInError = action.payload;
+         state.signIn.signInStatus = 'error';
       },
 
       [handleUserSignUp.pending]: (state, action) => {
-         state.status = 'loading';
+         state.signUp.signUpStatus = 'loading';
       },
       [handleUserSignUp.fulfilled]: (state, action) => {
-         state.status = 'success';
+         state.signUp.signUpStatus = 'signUpSuccess';
       },
       [handleUserSignUp.rejected]: (state, action) => {
-         state.error = action.payload;
-         state.status = 'error';
+         state.signUp.signUpError = action.payload;
+         state.signUp.signUpError = 'error';
+      },
+
+      [handleUserSignOut]: (state) => {
+         state.currentUser = null;
+         state.token = null;
+         state.signUp = {
+            signUpStatus: 'idle',
+            signUpError: '',
+         };
+         state.signIn = {
+            signInStatus: 'idle',
+            signInError: '',
+         };
+         localStorage?.removeItem('session');
       },
 
       [handleFetchUser.pending]: (state, action) => {

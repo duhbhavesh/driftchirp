@@ -24,7 +24,9 @@ export default function SignUp() {
    });
 
    const dispatch = useDispatch();
-   const { error, status } = useSelector((state) => state.user);
+   const {
+      signUp: { signUpStatus, signUpError },
+   } = useSelector((state) => state.user);
    const notify = (message) => toast.success(message);
 
    const handleOnChangeInput = (e) => {
@@ -91,11 +93,11 @@ export default function SignUp() {
    };
 
    useEffect(() => {
-      if (status === 'success') {
+      if (signUpStatus === 'signUpSuccess') {
          navigate('/signin');
          notify('User Signed Up');
       }
-   }, [status]);
+   }, [signUpStatus]);
 
    return (
       <>
@@ -217,7 +219,7 @@ export default function SignUp() {
                   </Link>
                   <span className='w-1/5 border-b md:w-1/4'></span>
                </div>
-               <div className='text-black-dark'>{error}</div>
+               <div className='text-black-dark'>{signUpError}</div>
             </form>
          </div>
       </>

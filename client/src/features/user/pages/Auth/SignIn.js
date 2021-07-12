@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import toast from 'react-hot-toast';
 import { handleUserSignIn } from '../../userSlice';
 
 export default function LogIn() {
+   const navigate = useNavigate();
    const [user, setUser] = useState({
       email: '',
       password: '',
    });
 
-   const { error } = useSelector((state) => state.user);
+   const {
+      signIn: { signInStatus, signInError },
+   } = useSelector((state) => state.user);
    const dispatch = useDispatch();
+   const notify = (message) => toast.success(message);
 
    const handleOnChangeInput = (e) => {
       setUser({ ...user, [e.target.name]: e.target.value });
@@ -22,6 +27,13 @@ export default function LogIn() {
          handleUserSignIn({ email: user.email, password: user.password }),
       );
    };
+
+   useEffect(() => {
+      if (signInStatus === 'signInSuccess') {
+         navigate('/feed');
+         notify('Successfully Logged In!');
+      }
+   }, [signInStatus]);
 
    return (
       <>
@@ -83,7 +95,7 @@ export default function LogIn() {
                   </Link>
                   <span className='w-1/5 border-b md:w-1/4'></span>
                </div>
-               <div className='text-black-dark'>{error}</div>
+               <div className='text-black-dark'>{signInError}</div>
             </form>
          </div>
       </>

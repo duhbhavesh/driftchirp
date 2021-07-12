@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { PrivateRoute } from './features/user/pages/Auth/PrivateRoute';
 import { Toast } from './common/Toast/Toast';
 import { setTheme, setUser } from './common/utils/utils';
 import { useDispatch } from 'react-redux';
@@ -28,10 +29,10 @@ export default function App() {
             <Route path='/' element={<SignIn />} />
             <Route path='/signin' element={<SignIn />} />
             <Route path='/signup' element={<SignUp />} />
-            <Route path='/feed' element={<Feed />} />
-            <Route path='/explore' element={<Explore />} />
-            <Route path='/notifications' element={<Notifications />} />
-            <Route path='/profile' element={<Profile />} />
+            <PrivateRoute path='/feed' element={<Feed />} />
+            <PrivateRoute path='/explore' element={<Explore />} />
+            <PrivateRoute path='/notifications' element={<Notifications />} />
+            <PrivateRoute path='/profile' element={<Profile />} />
          </Routes>
       </div>
    );
