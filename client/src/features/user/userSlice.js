@@ -108,7 +108,7 @@ const userSlice = createSlice({
       },
       [handleUserSignUp.rejected]: (state, action) => {
          state.signUp.signUpError = action.payload;
-         state.signUp.signUpError = 'error';
+         state.signUp.signUpStatus = 'error';
       },
 
       [handleUserSignOut]: (state) => {

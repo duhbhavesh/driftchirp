@@ -86,6 +86,9 @@ export default function LogIn() {
                      Log In
                   </button>
                </div>
+               <div className='text-red-500 text-center font-bold mt-4'>
+                  {signInError}
+               </div>
                <div className='flex items-center justify-between mt-4'>
                   <span className='w-1/5 border-b md:w-1/4'></span>
                   <Link
@@ -95,7 +98,6 @@ export default function LogIn() {
                   </Link>
                   <span className='w-1/5 border-b md:w-1/4'></span>
                </div>
-               <div className='text-black-dark'>{signInError}</div>
             </form>
          </div>
       </>

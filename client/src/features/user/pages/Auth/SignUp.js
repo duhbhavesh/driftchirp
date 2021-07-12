@@ -124,7 +124,9 @@ export default function SignUp() {
                      onChange={(e) => handleOnChangeInput(e)}
                   />
                   {validationError.firstName && (
-                     <small>*{validationError.firstName}</small>
+                     <small className='text-red-500 font-semibold'>
+                        *{validationError.firstName}
+                     </small>
                   )}
                </div>
                <div className='mt-4'>
@@ -143,7 +145,9 @@ export default function SignUp() {
                      onChange={(e) => handleOnChangeInput(e)}
                   />
                   {validationError.lastName && (
-                     <small>*{validationError.lastName}</small>
+                     <small className='text-red-500 font-semibold'>
+                        *{validationError.lastName}
+                     </small>
                   )}
                </div>
                <div className='mt-4'>
@@ -162,7 +166,9 @@ export default function SignUp() {
                      onChange={(e) => handleOnChangeInput(e)}
                   />
                   {validationError.username && (
-                     <small>*{validationError.username}</small>
+                     <small className='text-red-500 font-semibold'>
+                        *{validationError.username}
+                     </small>
                   )}
                </div>
                <div className='mt-4'>
@@ -181,7 +187,9 @@ export default function SignUp() {
                      onChange={(e) => handleOnChangeInput(e)}
                   />
                   {validationError.email && (
-                     <small>*{validationError.email}</small>
+                     <small className='text-red-500 font-semibold'>
+                        *{validationError.email}
+                     </small>
                   )}
                </div>
                <div className='mt-4'>
@@ -200,7 +208,9 @@ export default function SignUp() {
                      onChange={(e) => handleOnChangeInput(e)}
                   />
                   {validationError.password && (
-                     <small>*{validationError.password}</small>
+                     <small className='text-red-500 font-semibold'>
+                        *{validationError.password}
+                     </small>
                   )}
                </div>
                <div className='mt-8'>
@@ -209,6 +219,9 @@ export default function SignUp() {
                      className='w-full px-4 py-3 tracking-wide font-bold text-white transition-colors duration-200 transform bg-blue rounded-full hover:bg-blue-light focus:outline-none focus:bg-blue-dark'>
                      Sign Up!
                   </button>
+               </div>
+               <div className='text-red-500 text-center font-bold mt-4'>
+                  {signUpError}
                </div>
                <div className='flex items-center justify-between mt-4'>
                   <span className='w-1/5 border-b md:w-1/4'></span>
@@ -219,7 +232,6 @@ export default function SignUp() {
                   </Link>
                   <span className='w-1/5 border-b md:w-1/4'></span>
                </div>
-               <div className='text-black-dark'>{signUpError}</div>
             </form>
          </div>
       </>
