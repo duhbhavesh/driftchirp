@@ -8,7 +8,9 @@ export default function Timeline() {
    const { tweets, tweetsStatus, tweetPostStatus } = useSelector(
       (state) => state.tweet,
    );
-   const { token } = useSelector((state) => state.user);
+   const { token, userFollowStatus, userUnFollowStatus } = useSelector(
+      (state) => state.user,
+   );
    const dispatch = useDispatch();
    useEffect(() => {
       if (tweetsStatus === 'idle') {
@@ -21,6 +23,12 @@ export default function Timeline() {
          dispatch(handleFetchFeed({ token }));
       }
    }, [tweetPostStatus]);
+
+   useEffect(() => {
+      if (userFollowStatus === 'success' || userUnFollowStatus === 'success') {
+         dispatch(handleFetchFeed({ token }));
+      }
+   }, [userFollowStatus, userUnFollowStatus]);
 
    return (
       <>

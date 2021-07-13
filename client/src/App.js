@@ -4,7 +4,11 @@ import { PrivateRoute } from './features/user/pages/Auth/PrivateRoute';
 import { Toast } from './common/Toast/Toast';
 import { setTheme, setUser } from './common/utils/utils';
 import { useDispatch, useSelector } from 'react-redux';
-import { handleFetchUsers, setToken } from './features/user/userSlice';
+import {
+   handleFetchUser,
+   handleFetchUsers,
+   setToken,
+} from './features/user/userSlice';
 import Header from './common/Header/Header';
 import SignIn from './features/user/pages/Auth/SignIn';
 import SignUp from './features/user/pages/Auth/SignUp';
@@ -14,7 +18,7 @@ import Notifications from './features/notification/pages/Notifications/Notificat
 import Profile from './features/user/pages/Profile/Profile';
 
 export default function App() {
-   const { token } = useSelector((state) => state.user);
+   const { token, currentUser } = useSelector((state) => state.user);
    const dispatch = useDispatch();
 
    useEffect(() => {
@@ -26,6 +30,9 @@ export default function App() {
       if (token) {
          (async function () {
             await dispatch(handleFetchUsers({ token }));
+            await dispatch(
+               handleFetchUser({ username: currentUser.username, token }),
+            );
          })();
       }
    }, [token]);

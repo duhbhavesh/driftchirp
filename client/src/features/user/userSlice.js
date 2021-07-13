@@ -100,6 +100,20 @@ export const handleFollow = createAsyncThunk(
    },
 );
 
+export const handleUnFollow = createAsyncThunk(
+   'user/handleUnFollow',
+   async ({ id, token }) => {
+      const response = await axios({
+         method: 'GET',
+         url: `${API_ENDPOINT}/api/user/${id}/unfollow`,
+         headers: {
+            Authorization: token,
+         },
+      });
+      return response.data;
+   },
+);
+
 const initialState = {
    token: null,
 
@@ -119,6 +133,7 @@ const initialState = {
    userProfileStatus: 'idle',
 
    userFollowStatus: 'idle',
+   userUnfollowStatus: 'idle',
 };
 
 const userSlice = createSlice({
@@ -205,6 +220,14 @@ const userSlice = createSlice({
       [handleFollow.fulfilled]: (state, action) => {
          state.userProfile = action.payload.users;
          state.userFollowStatus = 'success';
+      },
+
+      [handleUnFollow.pending]: (state, action) => {
+         state.userUnfollowStatus = 'loading';
+      },
+      [handleUnFollow.fulfilled]: (state, action) => {
+         state.userProfile = action.payload.users;
+         state.userUnfollowStatus = 'success';
       },
    },
 });
