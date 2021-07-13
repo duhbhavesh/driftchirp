@@ -29,7 +29,7 @@ export const setTheme = () => {
 export const setUser = async (dispatch, setToken) => {
    const session = JSON.parse(localStorage?.getItem('session'));
    session?.token &&
-      session.username &&
+      session?.username &&
       (await dispatch(
          handleFetchUser({
             username: session.username,
@@ -37,4 +37,9 @@ export const setUser = async (dispatch, setToken) => {
          }),
       ));
    session?.token && (await dispatch(setToken({ token: session.token })));
+};
+
+export const formatDate = (ISOString) => {
+   const date = new Date(ISOString).toUTCString().substring(4, 16);
+   return date;
 };

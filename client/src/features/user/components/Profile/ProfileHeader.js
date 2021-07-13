@@ -1,7 +1,8 @@
 import React from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
+import { useSelector } from 'react-redux';
 
-export default function ProfileHeader() {
+export default function ProfileHeader({ user }) {
    return (
       <>
          <div className='pb-2 bg-white-dark dark:bg-black rounded-tl-md rounded-tr-md'>
@@ -14,10 +15,11 @@ export default function ProfileHeader() {
                   </div>
                   <div>
                      <h2 className='mb-0 text-xl font-bold text-black-dark dark:text-white'>
-                        Bhavesh Kasturi
+                        <span className='mr-1'>{user?.firstName}</span>
+                        <span className='mr-1'>{user?.lastName}</span>
                      </h2>
                      <p className='mb-0 text-xs text-gray-600 dark:text-gray-400'>
-                        118 Tweets
+                        {user?.tweetsCount} Tweets
                      </p>
                   </div>
                </div>

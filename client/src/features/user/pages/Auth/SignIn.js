@@ -11,9 +11,9 @@ export default function LogIn() {
       password: '',
    });
 
-   const {
-      signIn: { signInStatus, signInError },
-   } = useSelector((state) => state.user);
+   const { token, signInStatus, signInError } = useSelector(
+      (state) => state.user,
+   );
    const dispatch = useDispatch();
    const notify = (message) => toast.success(message);
 
@@ -27,6 +27,12 @@ export default function LogIn() {
          handleUserSignIn({ email: user.email, password: user.password }),
       );
    };
+
+   useEffect(() => {
+      if (token) {
+         navigate('/feed');
+      }
+   });
 
    useEffect(() => {
       if (signInStatus === 'signInSuccess') {

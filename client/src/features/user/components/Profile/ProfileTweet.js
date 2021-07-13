@@ -2,7 +2,9 @@ import React from 'react';
 import { FaRegComment, FaRegHeart, FaRegBookmark } from 'react-icons/fa';
 import { AiOutlineRetweet } from 'react-icons/ai';
 
-export default function Tweet() {
+export default function PorfileTweet({ tweetDetails }) {
+   const { tweet, user, createdAt } = tweetDetails;
+
    return (
       <>
          <article className='flex bg-white dark:bg-black-light text-black-dark dark:text-white m-3 rounded-md'>
@@ -12,7 +14,7 @@ export default function Tweet() {
                      <div>
                         <img
                            className='inline-block h-10 w-10 rounded-full'
-                           src='https://pbs.twimg.com/profile_images/1299221468367077379/HCpW2wp7_400x400.jpg'
+                           src='https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png'
                            alt=''
                         />
                      </div>
@@ -23,17 +25,15 @@ export default function Tweet() {
                <div className='ml-2 mt-3'>
                   <div className='flex items-center'>
                      <span className='text-base leading-6 font-medium'>
-                        Bhavesh Kasturi
+                        {user?.firstName} {user?.lastName}
                      </span>
-                     <span className='text-sm font-medium text-gray-400'>
-                        @duhbhavesh · 16 June
+                     <span className='text-sm font-medium text-gray-400 ml-1'>
+                        @{user?.username} · {createdAt}
                      </span>
                   </div>
 
                   <p className='text-base width-auto font-medium flex-shrink'>
-                     The art of programming is the skill of controlling
-                     complexity. - Eloquent JavaScript
-                     <span className='text-blue'> #DEVCommunity</span>
+                     {tweet}
                   </p>
                </div>
                <div className='flex'>

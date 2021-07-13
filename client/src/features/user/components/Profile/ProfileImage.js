@@ -6,7 +6,7 @@ export default function ProfileImage() {
          <div className='md rounded-full relative'>
             <img
                className='md rounded-full relative border-4 border-white dark:border-gray-900 w-32 h-32'
-               src='https://pbs.twimg.com/profile_images/1299221468367077379/HCpW2wp7_400x400.jpg'
+               src='https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png'
                alt=''
             />
          </div>

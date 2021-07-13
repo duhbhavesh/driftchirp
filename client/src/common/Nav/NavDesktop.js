@@ -1,26 +1,51 @@
 import React from 'react';
-import { NavData } from './NavData';
+import { FaHome, FaHashtag, FaBell, FaUser } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 export default function NavDesktop() {
+   const {
+      currentUser: { username },
+   } = useSelector((state) => state.user);
+
    return (
       <>
          <div className='hidden md:flex md:w-56 justify-center bg-white-dark dark:bg-black m-4 rounded-md mr-4'>
             <div className='flex flex-col justify-between py-2'>
                <nav className='mt-5 px-2 h-80'>
-                  {NavData.map((navlink) => {
-                     return (
-                        <>
-                           <Link
-                              className='flex items-center px-4 py-3 mb-2 text-base font-semibold rounded-full text-black-dark dark:text-white hover:bg-blue-light hover:text-white'
-                              key={navlink.id}
-                              to={navlink.link}>
-                              <span className='text-xl'>{navlink.icon}</span>
-                              <span className='ml-2'>{navlink.text}</span>
-                           </Link>
-                        </>
-                     );
-                  })}
+                  <Link
+                     className='flex items-center px-4 py-3 mb-2 text-base font-semibold rounded-full text-black-dark dark:text-white hover:bg-blue-light hover:text-white'
+                     to='/feed'>
+                     <span className='text-xl'>
+                        <FaHome />
+                     </span>
+                     <span className='ml-2'>Home</span>
+                  </Link>
+                  <Link
+                     className='flex items-center px-4 py-3 mb-2 text-base font-semibold rounded-full text-black-dark dark:text-white hover:bg-blue-light hover:text-white'
+                     to='/explore'>
+                     <span className='text-xl'>
+                        <FaHashtag />
+                     </span>
+                     <span className='ml-2'>Explore</span>
+                  </Link>
+                  <Link
+                     className='flex items-center px-4 py-3 mb-2 text-base font-semibold rounded-full text-black-dark dark:text-white hover:bg-blue-light hover:text-white'
+                     to='/notifications'>
+                     <span className='text-xl'>
+                        <FaBell />
+                     </span>
+                     <span className='ml-2'>Notifications</span>
+                  </Link>
+                  <Link
+                     className='flex items-center px-4 py-3 mb-2 text-base font-semibold rounded-full text-black-dark dark:text-white hover:bg-blue-light hover:text-white'
+                     to={`/profile/${username}`}>
+                     <span className='text-xl'>
+                        <FaUser />
+                     </span>
+                     <span className='ml-2'>Profile</span>
+                  </Link>
+
                   <button className='bg-blue-light w-full mt-5 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-full'>
                      Tweet
                   </button>

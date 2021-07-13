@@ -24,9 +24,7 @@ export default function SignUp() {
    });
 
    const dispatch = useDispatch();
-   const {
-      signUp: { signUpStatus, signUpError },
-   } = useSelector((state) => state.user);
+   const { signUpStatus, signUpError } = useSelector((state) => state.user);
    const notify = (message) => toast.success(message);
 
    const handleOnChangeInput = (e) => {

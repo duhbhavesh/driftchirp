@@ -15,7 +15,6 @@ export const handleUserSignIn = createAsyncThunk(
                password,
             },
          });
-         console.log('here', response);
          return response.data;
       } catch (error) {
          console.log({ error });
@@ -55,22 +54,76 @@ export const handleFetchUser = createAsyncThunk(
             Authorization: token,
          },
       });
-      console.log(username, 'working');
+      console.log('user', response.data);
+      return response.data;
+   },
+);
+
+export const handleFetchUsers = createAsyncThunk(
+   'user/handleFetchUsers',
+   async ({ token }) => {
+      const response = await axios({
+         method: 'GET',
+         url: `${API_ENDPOINT}/api/users`,
+         headers: {
+            Authorization: token,
+         },
+      });
+      console.log('users', response.data);
+      return response.data;
+   },
+);
+
+export const handleFetchUserProfile = createAsyncThunk(
+   'user/handleFetchUserProfile',
+   async ({ username, token }) => {
+      const response = await axios({
+         method: 'GET',
+         url: `${API_ENDPOINT}/api/user/${username}`,
+         headers: {
+            Authorization: token,
+         },
+      });
+      console.log('profile', response);
+      return response.data;
+   },
+);
+
+export const handleFetchUserTweets = createAsyncThunk(
+   'user/handleFetchUserTweets',
+   async ({ token }) => {
+      const response = await axios({
+         method: 'GET',
+         url: `${API_ENDPOINT}/api/tweets/user`,
+         headers: {
+            Authorization: token,
+         },
+      });
+      console.log('user tweets', response.data);
       return response.data;
    },
 );
 
 const initialState = {
-   currentUser: null,
    token: null,
-   signUp: {
-      signUpStatus: 'idle',
-      signUpError: '',
-   },
-   signIn: {
-      signInStatus: 'idle',
-      signInError: '',
-   },
+
+   currentUser: null,
+   currentUserStatus: 'idle',
+
+   signUpStatus: 'idle',
+   signUpError: '',
+
+   signInStatus: 'idle',
+   signInError: '',
+
+   users: [],
+   usersStatus: 'idle',
+
+   userProfile: null,
+   userProfileStatus: 'idle',
+
+   userTweets: [],
+   userTweetsStatus: 'idle',
 };
 
 const userSlice = createSlice({
@@ -80,61 +133,88 @@ const userSlice = createSlice({
       setToken(state, { payload }) {
          state.token = payload.token;
       },
-      resetToken(state) {
-         state.token = null;
-      },
    },
    extraReducers: {
       [handleUserSignIn.pending]: (state, action) => {
-         state.signIn.signInStatus = 'loading';
+         state.signInStatus = 'loading';
       },
       [handleUserSignIn.fulfilled]: (state, action) => {
          state.currentUser = action.payload.user;
          state.token = action.payload.token;
-         state.signIn.signInError = '';
+         state.signInError = '';
          setLocalStorage(action.payload.user, action.payload.token);
-         state.signIn.signInStatus = 'signInSuccess';
+         state.signInStatus = 'signInSuccess';
       },
       [handleUserSignIn.rejected]: (state, action) => {
-         state.signIn.signInError = action.payload;
-         state.signIn.signInStatus = 'error';
+         state.signInError = action.payload;
+         state.signInStatus = 'error';
       },
 
       [handleUserSignUp.pending]: (state, action) => {
-         state.signUp.signUpStatus = 'loading';
+         state.signUpStatus = 'loading';
       },
       [handleUserSignUp.fulfilled]: (state, action) => {
-         state.signUp.signUpStatus = 'signUpSuccess';
+         state.signUpStatus = 'signUpSuccess';
       },
       [handleUserSignUp.rejected]: (state, action) => {
-         state.signUp.signUpError = action.payload;
-         state.signUp.signUpStatus = 'error';
+         state.signUpError = action.payload;
+         state.signUpStatus = 'error';
       },
 
       [handleUserSignOut]: (state) => {
          state.currentUser = null;
          state.token = null;
-         state.signUp = {
-            signUpStatus: 'idle',
-            signUpError: '',
-         };
-         state.signIn = {
-            signInStatus: 'idle',
-            signInError: '',
-         };
+         state.signUpStatus = 'idle';
+         state.signUpError = '';
+         state.signInStatus = 'idle';
+         state.signInError = '';
          localStorage?.removeItem('session');
       },
 
       [handleFetchUser.pending]: (state, action) => {
-         state.status = 'loading';
+         state.currentUserStatus = 'loading';
       },
       [handleFetchUser.fulfilled]: (state, action) => {
          state.currentUser = action.payload.user;
-         state.status = 'success';
+         state.currentUserStatus = 'success';
       },
       [handleFetchUser.rejected]: (state, action) => {
-         state.error = action.payload;
-         state.status = 'error';
+         state.currentUserStatus = 'error';
+      },
+
+      [handleFetchUsers.pending]: (state, action) => {
+         state.usersStatus = 'loading';
+      },
+      [handleFetchUsers.fulfilled]: (state, action) => {
+         state.users = action.payload.users;
+         state.usersStatus = 'success';
+      },
+      [handleFetchUsers.rejected]: (state, action) => {
+         state.usersStatus = 'error';
+      },
+
+      [handleFetchUserProfile.pending]: (state, action) => {
+         state.userProfileStatus = 'loading';
+      },
+      [handleFetchUserProfile.fulfilled]: (state, action) => {
+         state.userProfile = action.payload.user;
+         state.userProfileStatus = 'success';
+      },
+      [handleFetchUserProfile.rejected]: (state, action) => {
+         state.userProfileStatus = 'error';
+      },
+
+      [handleFetchUserTweets.pending]: (state, action) => {
+         state.userTweetsStatus = 'loading';
+      },
+      [handleFetchUserTweets.fulfilled]: (state, action) => {
+         console.log('normal', action.payload.user);
+         console.log('diff', action.payload.tweets);
+         state.userTweets = action.payload.tweets;
+         state.userProfileStatus = 'success';
+      },
+      [handleFetchUserTweets.rejected]: (state, action) => {
+         state.userProfileStatus = 'error';
       },
    },
 });
