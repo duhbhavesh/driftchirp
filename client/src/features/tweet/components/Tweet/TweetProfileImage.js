@@ -6,7 +6,7 @@ export default function TweetProfileImage() {
          <div className='rounded-full relative'>
             <img
                className='rounded-full relative w-10 h-10'
-               src='https://pbs.twimg.com/profile_images/1299221468367077379/HCpW2wp7_400x400.jpg'
+               src='https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png'
                alt=''
             />
          </div>

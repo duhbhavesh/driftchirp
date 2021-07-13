@@ -16,10 +16,31 @@ export const handleFetchFeed = createAsyncThunk(
    },
 );
 
+export const handlePostTweet = createAsyncThunk(
+   'tweet/handlePostTweet',
+   async ({ tweet, token }) => {
+      const response = await axios({
+         method: 'POST',
+         url: `${API_ENDPOINT}/api/tweet`,
+         headers: {
+            Authorization: token,
+         },
+         data: {
+            tweet,
+         },
+      });
+      console.log('posting tweet', response);
+      return response.data;
+   },
+);
+
 const initialState = {
    tweets: null,
    tweetsStatus: 'idle',
    tweetsError: '',
+
+   tweetPost: {},
+   tweetPostStatus: 'idle',
 };
 
 const tweetSlice = createSlice({
@@ -31,9 +52,16 @@ const tweetSlice = createSlice({
          state.tweetsStatus = 'loading';
       },
       [handleFetchFeed.fulfilled]: (state, action) => {
-         console.log('action feed', action.payload.tweets);
          state.tweets = action.payload.tweets;
          state.tweetsStatus = 'success';
+      },
+
+      [handlePostTweet.pending]: (state, action) => {
+         state.tweetPostStatus = 'loading';
+      },
+      [handlePostTweet.fulfilled]: (state, action) => {
+         state.tweetPost = action.payload.savedTweet;
+         state.tweetPostStatus = 'success';
       },
    },
 });
