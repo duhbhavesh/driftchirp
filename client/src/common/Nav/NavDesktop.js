@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 export default function NavDesktop() {
    const {
-      currentUser: { username },
+      currentUser: { username, firstName, lastName },
    } = useSelector((state) => state.user);
 
    return (
@@ -46,31 +46,33 @@ export default function NavDesktop() {
                      <span className='ml-2'>Profile</span>
                   </Link>
 
-                  <button className='bg-blue-light w-full mt-5 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-full'>
+                  <button className='bg-blue-dark w-full mt-5 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-full'>
                      Tweet
                   </button>
                </nav>
 
                <div className='flex-shrink-0 flex rounded-full p-4 mb-24 mr-2'>
-                  <a href='/' className='flex-shrink-0 block'>
+                  <Link
+                     to={`/profile/${username}`}
+                     className='flex-shrink-0 block'>
                      <div className='flex items-center'>
                         <div>
                            <img
                               className='inline-block h-10 w-10 rounded-full'
-                              src='https://pbs.twimg.com/profile_images/1299221468367077379/HCpW2wp7_400x400.jpg'
+                              src='https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png'
                               alt=''
                            />
                         </div>
                         <div className='ml-3'>
                            <p className='text-base leading-6 font-medium text-black-dark dark:text-white'>
-                              Bhavesh Kasturi
+                              {firstName} {lastName}
                            </p>
                            <p className='text-sm leading-5 font-medium text-gray-400'>
-                              @duhbhavesh
+                              @{username}
                            </p>
                         </div>
                      </div>
-                  </a>
+                  </Link>
                </div>
             </div>
             <div />

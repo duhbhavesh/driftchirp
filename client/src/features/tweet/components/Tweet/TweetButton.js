@@ -21,7 +21,7 @@ export default function TweetButton({
                console.log('click working');
                handleTweetSubmit();
             }}
-            className='bg-blue-light w-24 mt-5 hover:bg-blue-dark text-white font-bold py-2 px-2 rounded-full disabled:opacity-50'>
+            className='bg-blue-dark w-24 mt-5 hover:bg-blue-light text-white font-bold py-2 px-2 rounded-full disabled:opacity-50'>
             Tweet
          </button>
       </>

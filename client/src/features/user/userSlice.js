@@ -54,7 +54,6 @@ export const handleFetchUser = createAsyncThunk(
             Authorization: token,
          },
       });
-      console.log('user', response.data);
       return response.data;
    },
 );
@@ -69,7 +68,6 @@ export const handleFetchUsers = createAsyncThunk(
             Authorization: token,
          },
       });
-      console.log('users', response.data);
       return response.data;
    },
 );
@@ -84,7 +82,20 @@ export const handleFetchUserProfile = createAsyncThunk(
             Authorization: token,
          },
       });
-      console.log('profile', response);
+      return response.data;
+   },
+);
+
+export const handleFollow = createAsyncThunk(
+   'user/handleFollow',
+   async ({ id, token }) => {
+      const response = await axios({
+         method: 'GET',
+         url: `${API_ENDPOINT}/api/user/${id}/follow`,
+         headers: {
+            Authorization: token,
+         },
+      });
       return response.data;
    },
 );
@@ -106,6 +117,8 @@ const initialState = {
 
    userProfile: null,
    userProfileStatus: 'idle',
+
+   userFollowStatus: 'idle',
 };
 
 const userSlice = createSlice({
@@ -184,6 +197,14 @@ const userSlice = createSlice({
       },
       [handleFetchUserProfile.rejected]: (state, action) => {
          state.userProfileStatus = 'error';
+      },
+
+      [handleFollow.pending]: (state, action) => {
+         state.userFollowStatus = 'loading';
+      },
+      [handleFollow.fulfilled]: (state, action) => {
+         state.userProfile = action.payload.users;
+         state.userFollowStatus = 'success';
       },
    },
 });

@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 export default function TweetCard() {
    const [tweet, setTweet] = useState('');
-   const { user, token } = useSelector((state) => state.user);
+   const { token } = useSelector((state) => state.user);
    const dispatch = useDispatch();
 
    return (

@@ -43,3 +43,7 @@ export const formatDate = (ISOString) => {
    const date = new Date(ISOString).toUTCString().substring(4, 16);
    return date;
 };
+
+export const checkFollow = (arr, userId) => {
+   return arr.find((userFollowed) => userFollowed.id === userId) ? true : false;
+};

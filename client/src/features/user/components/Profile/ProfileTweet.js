@@ -2,7 +2,7 @@ import React from 'react';
 import { FaRegComment, FaRegHeart, FaRegBookmark } from 'react-icons/fa';
 import { AiOutlineRetweet } from 'react-icons/ai';
 
-export default function PorfileTweet({ tweetDetails }) {
+export default function ProfileTweet({ tweetDetails }) {
    const { tweet, user, createdAt } = tweetDetails;
 
    return (

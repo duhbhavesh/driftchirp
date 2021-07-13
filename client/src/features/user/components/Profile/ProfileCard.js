@@ -6,15 +6,13 @@ import ProfileImage from './ProfileImage';
 import ProfileEditButton from './ProfileEditButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { handleFetchUserProfile, handleFetchUserTweets } from '../../userSlice';
+import { handleFetchUserProfile } from '../../userSlice';
 import ProfileStats from './ProfileStats';
 
 export default function ProfileCard() {
    const { username } = useParams();
    const dispatch = useDispatch();
    const { token, userProfile } = useSelector((state) => state.user);
-
-   console.log('my', userProfile);
 
    useEffect(() => {
       if (token) {

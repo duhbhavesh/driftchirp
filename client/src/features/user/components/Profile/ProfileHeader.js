@@ -1,6 +1,5 @@
 import React from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
-import { useSelector } from 'react-redux';
 
 export default function ProfileHeader({ user }) {
    return (
