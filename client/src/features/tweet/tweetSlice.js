@@ -2,12 +2,12 @@ import axios from 'axios';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { API_ENDPOINT } from '../../common/utils/utils';
 
-export const handleFetchTweets = createAsyncThunk(
-   'tweet/handleFetchTweets',
+export const handleFetchFeed = createAsyncThunk(
+   'tweet/handleFetchFeed',
    async ({ token }) => {
       const response = await axios({
          method: 'GET',
-         url: `${API_ENDPOINT}/api/tweets`,
+         url: `${API_ENDPOINT}/api/feed`,
          headers: {
             Authorization: token,
          },
@@ -27,10 +27,11 @@ const tweetSlice = createSlice({
    initialState,
    reducers: {},
    extraReducers: {
-      [handleFetchTweets.pending]: (state, action) => {
+      [handleFetchFeed.pending]: (state, action) => {
          state.tweetsStatus = 'loading';
       },
-      [handleFetchTweets.fulfilled]: (state, action) => {
+      [handleFetchFeed.fulfilled]: (state, action) => {
+         console.log('action feed', action.payload.tweets);
          state.tweets = action.payload.tweets;
          state.tweetsStatus = 'success';
       },

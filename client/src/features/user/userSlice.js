@@ -89,21 +89,6 @@ export const handleFetchUserProfile = createAsyncThunk(
    },
 );
 
-export const handleFetchUserTweets = createAsyncThunk(
-   'user/handleFetchUserTweets',
-   async ({ token }) => {
-      const response = await axios({
-         method: 'GET',
-         url: `${API_ENDPOINT}/api/tweets/user`,
-         headers: {
-            Authorization: token,
-         },
-      });
-      console.log('user tweets', response.data);
-      return response.data;
-   },
-);
-
 const initialState = {
    token: null,
 
@@ -121,9 +106,6 @@ const initialState = {
 
    userProfile: null,
    userProfileStatus: 'idle',
-
-   userTweets: [],
-   userTweetsStatus: 'idle',
 };
 
 const userSlice = createSlice({
@@ -201,19 +183,6 @@ const userSlice = createSlice({
          state.userProfileStatus = 'success';
       },
       [handleFetchUserProfile.rejected]: (state, action) => {
-         state.userProfileStatus = 'error';
-      },
-
-      [handleFetchUserTweets.pending]: (state, action) => {
-         state.userTweetsStatus = 'loading';
-      },
-      [handleFetchUserTweets.fulfilled]: (state, action) => {
-         console.log('normal', action.payload.user);
-         console.log('diff', action.payload.tweets);
-         state.userTweets = action.payload.tweets;
-         state.userProfileStatus = 'success';
-      },
-      [handleFetchUserTweets.rejected]: (state, action) => {
          state.userProfileStatus = 'error';
       },
    },
