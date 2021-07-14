@@ -28,6 +28,7 @@ app.use('/api', tweetRouter);
 app.use(handleRouteNotFound);
 app.use(handleError);
 
-app.listen(3000, (req, res) => {
-   console.log('Server Listening on PORT 3000');
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => {
+   console.log(`Server Listening on PORT ${PORT}`);
 });
