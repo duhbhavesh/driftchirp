@@ -55,6 +55,27 @@ export const handleToggleLike = createAsyncThunk(
    },
 );
 
+export const handleToggleBookMark = createAsyncThunk(
+   'user/handleToggleBookmark',
+   async ({ id, token }, { rejectWithValue }) => {
+      try {
+         const response = await axios({
+            method: 'GET',
+            url: `${API_ENDPOINT}/api/tweet/${id}/togglebookmark`,
+            headers: {
+               Authorization: token,
+            },
+         });
+         console.log('toggling bookmark', response);
+         return response.data;
+      } catch (error) {
+         console.log({ error });
+         const value = error.response.data.errorMessage;
+         return rejectWithValue(value);
+      }
+   },
+);
+
 const initialState = {
    tweets: null,
    tweetsStatus: 'idle',
@@ -66,6 +87,10 @@ const initialState = {
    tweetsLiked: {},
    tweetLikedStatus: 'idle',
    tweetLikedError: '',
+
+   tweetsBookmarked: {},
+   tweetBookmarkStatus: 'idle',
+   tweetBookmarkError: '',
 };
 
 const tweetSlice = createSlice({
@@ -99,6 +124,18 @@ const tweetSlice = createSlice({
       [handleToggleLike.rejected]: (state, action) => {
          state.tweetLikedError = action.payload;
          state.tweetLikedStatus = 'error';
+      },
+
+      [handleToggleBookMark.pending]: (state, action) => {
+         state.tweetBookmarkStatus = 'loading';
+      },
+      [handleToggleBookMark.fulfilled]: (state, action) => {
+         state.tweetsBookmarked = action.payload.bookmarks;
+         state.tweetBookmarkStatus = 'success';
+      },
+      [handleToggleBookMark.rejected]: (state, action) => {
+         state.tweetBookmarkError = action.payload;
+         state.tweetBookmarkStatus = 'error';
       },
    },
 });

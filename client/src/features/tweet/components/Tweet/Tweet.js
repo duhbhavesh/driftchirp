@@ -4,21 +4,25 @@ import {
    FaRegHeart,
    FaRegBookmark,
    FaHeart,
+   FaBookmark,
 } from 'react-icons/fa';
 import { AiOutlineRetweet } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import { handleToggleLike } from '../../tweetSlice';
+import { handleToggleBookMark, handleToggleLike } from '../../tweetSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { checkLikes } from '../../../../common/utils/utils';
+import { checkBookMarks, checkLikes } from '../../../../common/utils/utils';
 
 export default function Tweet({ tweetDetails }) {
    const { tweet, user, createdAt, _id } = tweetDetails;
    const { token, currentUser } = useSelector((state) => state.user);
-   const { tweets } = useSelector((state) => state.tweet);
    const dispatch = useDispatch();
 
    const handleToggleLikeSubmit = async () => {
       await dispatch(handleToggleLike({ id: _id, token }));
+   };
+
+   const handleToggleBookMarkSubmit = async () => {
+      await dispatch(handleToggleBookMark({ id: _id, token }));
    };
 
    return (
@@ -86,9 +90,19 @@ export default function Tweet({ tweetDetails }) {
                      </div>
 
                      <div className='flex-1 py-2 m-2'>
-                        <button className='w-12 mx-auto mt-1 group flex justify-center text-gray-500 px-3 py-2 font-medium rounded-full hover:bg-blue hover:text-blue-300'>
-                           <FaRegBookmark />
-                        </button>
+                        {!checkBookMarks(currentUser.bookmarked, _id) ? (
+                           <button
+                              onClick={() => handleToggleBookMarkSubmit()}
+                              className='w-12 mx-auto mt-1 group flex justify-center px-3 py-2 font-medium rounded-full text-gray-500 hover:bg-blue hover:text-blue-300'>
+                              <FaRegBookmark />
+                           </button>
+                        ) : (
+                           <button
+                              onClick={() => handleToggleBookMarkSubmit()}
+                              className='w-12 mx-auto mt-1 group flex justify-center px-3 py-2 font-medium rounded-full text-red-500 hover:bg-blue hover:text-blue-300'>
+                              <FaBookmark />
+                           </button>
+                        )}
                      </div>
                   </div>
                </div>

@@ -1,13 +1,13 @@
 import React from 'react';
 import NavDesktop from '../../../../common/Nav/NavDesktop';
-import TimeLineNotifications from '../../components/Timelines/TimeLineNotifications';
+import TimeLineBookMarks from '../../components/Timelines/TimeLineBookMarks';
 
-export default function Notifications() {
+export default function BookMarks() {
    return (
       <>
          <div className='md:container mx-auto flex justify-center'>
             <NavDesktop />
-            <TimeLineNotifications />
+            <TimeLineBookMarks />
          </div>
       </>
    );

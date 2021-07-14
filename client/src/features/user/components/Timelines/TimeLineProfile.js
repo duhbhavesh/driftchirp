@@ -9,7 +9,9 @@ export default function TimeLineProfile() {
    const { userProfile, currentUser, token } = useSelector(
       (state) => state.user,
    );
-   const { tweetLikedStatus } = useSelector((state) => state.tweet);
+   const { tweetLikedStatus, tweetBookmarkStatus } = useSelector(
+      (state) => state.tweet,
+   );
    const dispatch = useDispatch();
 
    useEffect(() => {
@@ -17,6 +19,12 @@ export default function TimeLineProfile() {
          dispatch(handleFetchUser({ username: currentUser.username, token }));
       }
    }, [tweetLikedStatus]);
+
+   useEffect(() => {
+      if (tweetBookmarkStatus === 'success') {
+         dispatch(handleFetchUser({ username: currentUser.username, token }));
+      }
+   }, [tweetBookmarkStatus]);
 
    return (
       <>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaHome, FaHashtag, FaBell, FaUser } from 'react-icons/fa';
+import { FaHome, FaHashtag, FaUser, FaBookmark } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -31,11 +31,11 @@ export default function NavDesktop() {
                   </Link>
                   <Link
                      className='flex items-center px-4 py-3 mb-2 text-base font-semibold rounded-full text-black-dark dark:text-white hover:bg-blue-light hover:text-white'
-                     to='/notifications'>
+                     to='/bookmarks'>
                      <span className='text-xl'>
-                        <FaBell />
+                        <FaBookmark />
                      </span>
-                     <span className='ml-2'>Notifications</span>
+                     <span className='ml-2'>Bookmarks</span>
                   </Link>
                   <Link
                      className='flex items-center px-4 py-3 mb-2 text-base font-semibold rounded-full text-black-dark dark:text-white hover:bg-blue-light hover:text-white'

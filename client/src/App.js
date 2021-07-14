@@ -6,6 +6,7 @@ import { setTheme, setUser } from './common/utils/utils';
 import { useDispatch, useSelector } from 'react-redux';
 import {
    handleFetchUser,
+   handleFetchUserProfile,
    handleFetchUsers,
    setToken,
 } from './features/user/userSlice';
@@ -14,8 +15,8 @@ import SignIn from './features/user/pages/Auth/SignIn';
 import SignUp from './features/user/pages/Auth/SignUp';
 import Feed from './features/tweet/pages/Feed/Feed';
 import Explore from './features/user/pages/Explore/Explore';
-import Notifications from './features/notification/pages/Notifications/Notifications';
 import Profile from './features/user/pages/Profile/Profile';
+import BookMarks from './features/user/pages/BookMarks/BookMarks';
 
 export default function App() {
    const { token, currentUser } = useSelector((state) => state.user);
@@ -30,9 +31,8 @@ export default function App() {
       if (token) {
          (async function () {
             await dispatch(handleFetchUsers({ token }));
-            await dispatch(
-               handleFetchUser({ username: currentUser.username, token }),
-            );
+            await dispatch(handleFetchUser({ username: currentUser.username, token }));
+            await dispatch(handleFetchUserProfile({ username: currentUser.username, token }));
          })();
       }
    }, [token]);
@@ -47,7 +47,7 @@ export default function App() {
             <Route path='/signup' element={<SignUp />} />
             <PrivateRoute path='/feed' element={<Feed />} />
             <PrivateRoute path='/explore' element={<Explore />} />
-            <PrivateRoute path='/notifications' element={<Notifications />} />
+            <PrivateRoute path='/bookmarks' element={<BookMarks />} />
             <PrivateRoute path='/profile/:username' element={<Profile />} />
          </Routes>
       </div>

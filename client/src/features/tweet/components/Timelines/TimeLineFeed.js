@@ -7,8 +7,13 @@ import { handleFetchUser } from '../../../user/userSlice';
 import TimeLineEmpty from './TimeLineEmpty';
 
 export default function Timeline() {
-   const { tweets, tweetsStatus, tweetPostStatus, tweetLikedStatus } =
-      useSelector((state) => state.tweet);
+   const {
+      tweets,
+      tweetsStatus,
+      tweetPostStatus,
+      tweetLikedStatus,
+      tweetBookmarkStatus,
+   } = useSelector((state) => state.tweet);
    const { token, userFollowStatus, userUnFollowStatus, currentUser } =
       useSelector((state) => state.user);
    const dispatch = useDispatch();
@@ -36,11 +41,17 @@ export default function Timeline() {
       }
    }, [tweetLikedStatus]);
 
+   useEffect(() => {
+      if (tweetBookmarkStatus === 'success') {
+         dispatch(handleFetchUser({ username: currentUser.username, token }));
+      }
+   }, [tweetBookmarkStatus]);
+
    return (
       <>
          <div className='bg-white-dark p-2 dark:bg-black w-full md:w-2/4 lg:w-2/5 m-4 rounded-md min-h-screen text-white'>
             <TweetCard />
-            {tweets.length === 0 ? (
+            {tweets?.length === 0 ? (
                <TimeLineEmpty />
             ) : (
                tweets?.map((tweet) => {

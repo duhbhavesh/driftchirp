@@ -53,3 +53,9 @@ export const checkLikes = (arr, tweetId) => {
       ? true
       : false;
 };
+
+export const checkBookMarks = (arr, tweetId) => {
+   return arr.find((userBookMarked) => userBookMarked.id === tweetId)
+      ? true
+      : false;
+};

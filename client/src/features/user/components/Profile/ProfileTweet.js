@@ -4,11 +4,15 @@ import {
    FaRegHeart,
    FaRegBookmark,
    FaHeart,
+   FaBookmark,
 } from 'react-icons/fa';
 import { AiOutlineRetweet } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
-import { handleToggleLike } from '../../../tweet/tweetSlice';
-import { checkLikes } from '../../../../common/utils/utils';
+import {
+   handleToggleBookMark,
+   handleToggleLike,
+} from '../../../tweet/tweetSlice';
+import { checkBookMarks, checkLikes } from '../../../../common/utils/utils';
 
 export default function ProfileTweet({ tweetDetails }) {
    const { tweet, user, createdAt, id } = tweetDetails;
@@ -17,6 +21,10 @@ export default function ProfileTweet({ tweetDetails }) {
    const dispatch = useDispatch();
    const handleToggleLikeSubmit = async () => {
       await dispatch(handleToggleLike({ id: id, token }));
+   };
+
+   const handleToggleBookMarkSubmit = async () => {
+      await dispatch(handleToggleBookMark({ id: id, token }));
    };
 
    return (
@@ -35,7 +43,7 @@ export default function ProfileTweet({ tweetDetails }) {
                   </div>
                </a>
             </div>
-            <div className='flex flex-col'>
+            <div className='flex flex-col w-full'>
                <div className='ml-2 mt-3'>
                   <div className='flex items-center'>
                      <span className='text-base leading-6 font-medium'>
@@ -81,9 +89,19 @@ export default function ProfileTweet({ tweetDetails }) {
                      </div>
 
                      <div className='flex-1 py-2 m-2'>
-                        <button className='w-12 mx-auto mt-1 group flex justify-center text-gray-500 px-3 py-2 font-medium rounded-full hover:bg-blue hover:text-blue-300'>
-                           <FaRegBookmark />
-                        </button>
+                        {!checkBookMarks(currentUser.bookmarked, id) ? (
+                           <button
+                              onClick={() => handleToggleBookMarkSubmit()}
+                              className='w-12 mx-auto mt-1 group flex justify-center px-3 py-2 font-medium rounded-full text-gray-500 hover:bg-blue hover:text-blue-300'>
+                              <FaRegBookmark />
+                           </button>
+                        ) : (
+                           <button
+                              onClick={() => handleToggleBookMarkSubmit()}
+                              className='w-12 mx-auto mt-1 group flex justify-center px-3 py-2 font-medium rounded-full text-red-500 hover:bg-blue hover:text-blue-300'>
+                              <FaBookmark />
+                           </button>
+                        )}
                      </div>
                   </div>
                </div>
