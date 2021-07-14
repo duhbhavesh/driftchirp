@@ -1,18 +1,15 @@
 import React from 'react';
-import {
-   FaRegComment,
-   FaRegHeart,
-   FaRegBookmark,
-   FaHeart,
-   FaBookmark,
-} from 'react-icons/fa';
-import { AiOutlineRetweet } from 'react-icons/ai';
+import { FaRegHeart, FaRegBookmark, FaHeart, FaBookmark } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import {
    handleToggleBookMark,
    handleToggleLike,
 } from '../../../tweet/tweetSlice';
-import { checkBookMarks, checkLikes } from '../../../../common/utils/utils';
+import {
+   checkBookMarks,
+   checkLikes,
+   formatDate,
+} from '../../../../common/utils/utils';
 
 export default function ProfileTweet({ tweetDetails }) {
    const { tweet, user, createdAt, id } = tweetDetails;
@@ -49,29 +46,17 @@ export default function ProfileTweet({ tweetDetails }) {
                      <span className='text-base leading-6 font-medium'>
                         {user?.firstName} {user?.lastName}
                      </span>
-                     <span className='text-sm font-medium text-gray-400 ml-1'>
-                        @{user?.username} · {createdAt}
+                     <span className='text-sm font-medium text-gray-400 ml-4'>
+                        @{user?.username} · {formatDate(createdAt)}
                      </span>
                   </div>
 
-                  <p className='text-base width-auto font-medium flex-shrink'>
+                  <p className='text-base width-auto font-medium flex-shrink mt-2'>
                      {tweet}
                   </p>
                </div>
                <div className='flex'>
-                  <div className='flex justify-start w-4/5'>
-                     <div className='flex-1 py-2 m-2'>
-                        <button className='w-12 mx-auto mt-1 group flex justify-center text-gray-500 px-3 py-2 font-medium rounded-full hover:bg-blue hover:text-blue-300'>
-                           <FaRegComment />
-                        </button>
-                     </div>
-
-                     <div className='flex-1 py-2 m-2'>
-                        <button className='w-12 mx-auto mt-1 group flex justify-center text-gray-500 px-3 py-2 font-medium rounded-full hover:bg-blue hover:text-blue-300'>
-                           <AiOutlineRetweet />
-                        </button>
-                     </div>
-
+                  <div className='flex'>
                      <div className='flex-1 py-2 m-2'>
                         {!checkLikes(currentUser.liked, id) ? (
                            <button
@@ -98,7 +83,7 @@ export default function ProfileTweet({ tweetDetails }) {
                         ) : (
                            <button
                               onClick={() => handleToggleBookMarkSubmit()}
-                              className='w-12 mx-auto mt-1 group flex justify-center px-3 py-2 font-medium rounded-full text-red-500 hover:bg-blue hover:text-blue-300'>
+                              className='w-12 mx-auto mt-1 group flex justify-center px-3 py-2 font-medium rounded-full dark:text-gray-500 text-gray-300  hover:bg-blue hover:text-blue-300'>
                               <FaBookmark />
                            </button>
                         )}

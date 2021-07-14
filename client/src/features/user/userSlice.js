@@ -173,11 +173,18 @@ const userSlice = createSlice({
 
       [handleUserSignOut]: (state) => {
          state.currentUser = null;
+         state.currentUserStatus = 'idle';
          state.token = null;
          state.signUpStatus = 'idle';
          state.signUpError = '';
          state.signInStatus = 'idle';
          state.signInError = '';
+         state.users = [];
+         state.usersStatus = 'idle';
+         state.userProfile = null;
+         state.userProfileStatus = 'idle';
+         state.userFollowStatus = 'idle';
+         state.userUnfollowStatus = 'idle';
          localStorage?.removeItem('session');
       },
 
