@@ -47,3 +47,9 @@ export const formatDate = (ISOString) => {
 export const checkFollow = (arr, userId) => {
    return arr.find((userFollowed) => userFollowed.id === userId) ? true : false;
 };
+
+export const checkLikes = (arr, tweetId) => {
+   return arr.find((userLikedTweet) => userLikedTweet.id === tweetId)
+      ? true
+      : false;
+};

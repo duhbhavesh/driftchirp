@@ -3,14 +3,14 @@ import Tweet from '../Tweet/Tweet';
 import TweetCard from '../../../tweet/components/Tweet/TweetCard';
 import { handleFetchFeed } from '../../tweetSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { handleFetchUser } from '../../../user/userSlice';
+import TimeLineEmpty from './TimeLineEmpty';
 
 export default function Timeline() {
-   const { tweets, tweetsStatus, tweetPostStatus } = useSelector(
-      (state) => state.tweet,
-   );
-   const { token, userFollowStatus, userUnFollowStatus } = useSelector(
-      (state) => state.user,
-   );
+   const { tweets, tweetsStatus, tweetPostStatus, tweetLikedStatus } =
+      useSelector((state) => state.tweet);
+   const { token, userFollowStatus, userUnFollowStatus, currentUser } =
+      useSelector((state) => state.user);
    const dispatch = useDispatch();
    useEffect(() => {
       if (tweetsStatus === 'idle') {
@@ -30,13 +30,23 @@ export default function Timeline() {
       }
    }, [userFollowStatus, userUnFollowStatus]);
 
+   useEffect(() => {
+      if (tweetLikedStatus === 'success') {
+         dispatch(handleFetchUser({ username: currentUser.username, token }));
+      }
+   }, [tweetLikedStatus]);
+
    return (
       <>
          <div className='bg-white-dark p-2 dark:bg-black w-full md:w-2/4 lg:w-2/5 m-4 rounded-md min-h-screen text-white'>
             <TweetCard />
-            {tweets?.map((tweet) => {
-               return <Tweet key={tweet.id} tweetDetails={tweet} />;
-            })}
+            {tweets.length === 0 ? (
+               <TimeLineEmpty />
+            ) : (
+               tweets?.map((tweet) => {
+                  return <Tweet key={tweet._id} tweetDetails={tweet} />;
+               })
+            )}
          </div>
       </>
    );

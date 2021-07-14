@@ -1,9 +1,23 @@
 import React from 'react';
-import { FaRegComment, FaRegHeart, FaRegBookmark } from 'react-icons/fa';
+import {
+   FaRegComment,
+   FaRegHeart,
+   FaRegBookmark,
+   FaHeart,
+} from 'react-icons/fa';
 import { AiOutlineRetweet } from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';
+import { handleToggleLike } from '../../../tweet/tweetSlice';
+import { checkLikes } from '../../../../common/utils/utils';
 
 export default function ProfileTweet({ tweetDetails }) {
-   const { tweet, user, createdAt } = tweetDetails;
+   const { tweet, user, createdAt, id } = tweetDetails;
+   const { token, currentUser } = useSelector((state) => state.user);
+
+   const dispatch = useDispatch();
+   const handleToggleLikeSubmit = async () => {
+      await dispatch(handleToggleLike({ id: id, token }));
+   };
 
    return (
       <>
@@ -51,9 +65,19 @@ export default function ProfileTweet({ tweetDetails }) {
                      </div>
 
                      <div className='flex-1 py-2 m-2'>
-                        <button className='w-12 mx-auto mt-1 group flex justify-center text-gray-500 px-3 py-2 font-medium rounded-full hover:bg-blue hover:text-blue-300'>
-                           <FaRegHeart />
-                        </button>
+                        {!checkLikes(currentUser.liked, id) ? (
+                           <button
+                              onClick={() => handleToggleLikeSubmit()}
+                              className='w-12 mx-auto mt-1 group flex justify-center px-3 py-2 font-medium rounded-full text-gray-500 hover:bg-blue hover:text-blue-300'>
+                              <FaRegHeart />
+                           </button>
+                        ) : (
+                           <button
+                              onClick={() => handleToggleLikeSubmit()}
+                              className='w-12 mx-auto mt-1 group flex justify-center px-3 py-2 font-medium rounded-full text-red-500 hover:bg-blue hover:text-blue-300'>
+                              <FaHeart />
+                           </button>
+                        )}
                      </div>
 
                      <div className='flex-1 py-2 m-2'>

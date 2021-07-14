@@ -46,9 +46,11 @@ export default function NavDesktop() {
                      <span className='ml-2'>Profile</span>
                   </Link>
 
-                  <button className='bg-blue-dark w-full mt-5 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-full'>
-                     Tweet
-                  </button>
+                  <Link to='/feed'>
+                     <button className='bg-blue-dark w-full mt-5 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-full'>
+                        Tweet
+                     </button>
+                  </Link>
                </nav>
 
                <div className='flex-shrink-0 flex rounded-full p-4 mb-24 mr-2'>

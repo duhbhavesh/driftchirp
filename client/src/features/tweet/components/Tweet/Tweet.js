@@ -1,10 +1,26 @@
 import React from 'react';
-import { FaRegComment, FaRegHeart, FaRegBookmark } from 'react-icons/fa';
+import {
+   FaRegComment,
+   FaRegHeart,
+   FaRegBookmark,
+   FaHeart,
+} from 'react-icons/fa';
 import { AiOutlineRetweet } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import { handleToggleLike } from '../../tweetSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { checkLikes } from '../../../../common/utils/utils';
 
 export default function Tweet({ tweetDetails }) {
-   const { tweet, user, createdAt } = tweetDetails;
+   const { tweet, user, createdAt, _id } = tweetDetails;
+   const { token, currentUser } = useSelector((state) => state.user);
+   const { tweets } = useSelector((state) => state.tweet);
+   const dispatch = useDispatch();
+
+   const handleToggleLikeSubmit = async () => {
+      await dispatch(handleToggleLike({ id: _id, token }));
+   };
+
    return (
       <>
          <article className='flex bg-white dark:bg-black-light text-black-dark dark:text-white m-3 rounded-md'>
@@ -21,7 +37,7 @@ export default function Tweet({ tweetDetails }) {
                   </div>
                </a>
             </div>
-            <div className='flex flex-col'>
+            <div className='flex flex-col w-full'>
                <div className='ml-2 mt-3'>
                   <div className='flex items-center'>
                      <Link to={`/profile/${user.username}`}>
@@ -54,9 +70,19 @@ export default function Tweet({ tweetDetails }) {
                      </div>
 
                      <div className='flex-1 py-2 m-2'>
-                        <button className='w-12 mx-auto mt-1 group flex justify-center text-gray-500 px-3 py-2 font-medium rounded-full hover:bg-blue hover:text-blue-300'>
-                           <FaRegHeart />
-                        </button>
+                        {!checkLikes(currentUser.liked, _id) ? (
+                           <button
+                              onClick={() => handleToggleLikeSubmit()}
+                              className='w-12 mx-auto mt-1 group flex justify-center px-3 py-2 font-medium rounded-full text-gray-500 hover:bg-blue hover:text-blue-300'>
+                              <FaRegHeart />
+                           </button>
+                        ) : (
+                           <button
+                              onClick={() => handleToggleLikeSubmit()}
+                              className='w-12 mx-auto mt-1 group flex justify-center px-3 py-2 font-medium rounded-full text-red-500 hover:bg-blue hover:text-blue-300'>
+                              <FaHeart />
+                           </button>
+                        )}
                      </div>
 
                      <div className='flex-1 py-2 m-2'>

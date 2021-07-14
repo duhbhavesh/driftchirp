@@ -224,7 +224,7 @@ export default function SignUp() {
                <div className='flex items-center justify-between mt-4'>
                   <span className='w-1/5 border-b md:w-1/4'></span>
                   <Link
-                     to='/login'
+                     to='/signin'
                      className='text-sm text-black hover:underline'>
                      Existing User? Login
                   </Link>

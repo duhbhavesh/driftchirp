@@ -34,6 +34,27 @@ export const handlePostTweet = createAsyncThunk(
    },
 );
 
+export const handleToggleLike = createAsyncThunk(
+   'tweet/handleToggleLike',
+   async ({ id, token }, { rejectWithValue }) => {
+      try {
+         const response = await axios({
+            method: 'GET',
+            url: `${API_ENDPOINT}/api/tweet/${id}/togglelike`,
+            headers: {
+               Authorization: token,
+            },
+         });
+         console.log('toggling like', response);
+         return response.data;
+      } catch (error) {
+         console.log({ error });
+         const value = error.response.data.errorMessage;
+         return rejectWithValue(value);
+      }
+   },
+);
+
 const initialState = {
    tweets: null,
    tweetsStatus: 'idle',
@@ -41,6 +62,10 @@ const initialState = {
 
    tweetPost: {},
    tweetPostStatus: 'idle',
+
+   tweetsLiked: {},
+   tweetLikedStatus: 'idle',
+   tweetLikedError: '',
 };
 
 const tweetSlice = createSlice({
@@ -62,6 +87,18 @@ const tweetSlice = createSlice({
       [handlePostTweet.fulfilled]: (state, action) => {
          state.tweetPost = action.payload.savedTweet;
          state.tweetPostStatus = 'success';
+      },
+
+      [handleToggleLike.pending]: (state, action) => {
+         state.tweetLikedStatus = 'loading';
+      },
+      [handleToggleLike.fulfilled]: (state, action) => {
+         state.tweetsLiked = action.payload.likes;
+         state.tweetLikedStatus = 'success';
+      },
+      [handleToggleLike.rejected]: (state, action) => {
+         state.tweetLikedError = action.payload;
+         state.tweetLikedStatus = 'error';
       },
    },
 });

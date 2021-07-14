@@ -72,11 +72,6 @@ export default function LogIn() {
                         htmlFor='input-password'>
                         Password
                      </label>
-                     <a
-                        href='/'
-                        className='text-xs text-black-lightest hover:underline'>
-                        Forget Password?
-                     </a>
                   </div>
                   <input
                      id='input-password'
