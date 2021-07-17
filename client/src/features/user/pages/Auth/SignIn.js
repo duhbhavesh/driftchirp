@@ -43,7 +43,7 @@ export default function LogIn() {
 
    return (
       <>
-         <div className='flex max-w-sm mx-auto overflow-hidden bg-white rounded-xl shadow-lg mt-20'>
+         <div className='flex max-w-sm mx-auto overflow-hidden bg-white rounded-xl shadow-lg mt-20 '>
             <form
                className='w-full px-6 py-8 md:px-8 pt-10 pb-14'
                onSubmit={(e) => handleFormSubmit(e)}>

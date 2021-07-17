@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import DarkModeButton from '../../common/Buttons/DarkModeButton';
+import Logo from '../../logo.svg';
 import { handleUserSignOut } from '../../features/user/userSlice';
 
 export default function Header() {
@@ -10,11 +11,11 @@ export default function Header() {
    return (
       <>
          <header className='bg-white-dark dark:bg-black'>
-            <div className='container mx-auto flex p-2 pl-8 pr-8 md:flex-row justify-between items-center'>
+            <div className='container mx-auto flex p-3 pt-4 pl-2 pr-2 md:pl-8 md:pr-8 flex-col md:flex-row justify-between items-center'>
                <Link
                   to='/feed'
                   className='flex title-font font-bold items-center'>
-                  <img src='' alt='' />
+                  <img className='h-8 w-8 mr-1' src={Logo} alt='' />
                   <span className='text-xl dark:text-white'>Driftchirp</span>
                </Link>
                <nav className='flex flex-wrap items-center text-base justify-center'>
