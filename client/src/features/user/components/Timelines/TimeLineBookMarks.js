@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import BookMarksHeader from '../BookMarks/BookMarksHeader';
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileTweet from '../Profile/ProfileTweet';
-import { handleFetchUser, handleFetchUserProfile } from '../../userSlice';
+import { handleFetchUserProfile } from '../../userSlice';
 import BookMarksEmpty from '../BookMarks/BookMarksEmpty';
 
 export default function TimeLineBookMarks() {

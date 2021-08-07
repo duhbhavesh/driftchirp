@@ -99,7 +99,7 @@ export default function SignUp() {
 
    return (
       <>
-         <div className='flex max-w-sm mx-auto overflow-hidden bg-white rounded-xl shadow-lg mt-10 mb-20'>
+         <div className='flex max-w-sm m-8 mt-20 mb-20 md:mx-auto overflow-hidden bg-white rounded-xl shadow-lg '>
             <form
                onSubmit={(e) => handleFormSubmit(e)}
                className='w-full px-6 py-8 md:px-8 pt-10 pb-14'>

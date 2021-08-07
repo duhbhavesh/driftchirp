@@ -12,7 +12,9 @@ import ProfileStats from './ProfileStats';
 export default function ProfileCard() {
    const { username } = useParams();
    const dispatch = useDispatch();
-   const { token, userProfile } = useSelector((state) => state.user);
+   const { token, userProfile, currentUser } = useSelector(
+      (state) => state.user,
+   );
 
    useEffect(() => {
       if (token) {
@@ -31,7 +33,9 @@ export default function ProfileCard() {
                      <ProfileImage />
                   </div>
                   <div className='flex flex-col text-right'>
-                     <ProfileEditButton />
+                     {currentUser?.id === userProfile?.id && (
+                        <ProfileEditButton />
+                     )}
                   </div>
                </div>
             </div>

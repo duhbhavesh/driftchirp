@@ -1,7 +1,8 @@
 import React from 'react';
-import { FaHome, FaHashtag, FaUser, FaBookmark } from 'react-icons/fa';
+import { FaUser } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import { NavData } from './NavData';
 
 export default function NavDesktop() {
    const {
@@ -10,44 +11,35 @@ export default function NavDesktop() {
 
    return (
       <>
-         <div className='hidden md:flex md:w-56 justify-center bg-white-dark dark:bg-black m-4 rounded-md mr-4'>
+         <div className='sticky top-10 hidden md:flex md:w-56 justify-center bg-white-dark dark:bg-black m-4 rounded-md  h-4/5 mr-4'>
             <div className='flex flex-col justify-between py-2'>
-               <nav className='mt-5 px-2 h-80'>
-                  <Link
-                     className='flex items-center px-4 py-3 mb-2 text-base font-semibold rounded-full text-black-dark dark:text-white hover:bg-blue-light hover:text-white'
-                     to='/feed'>
-                     <span className='text-xl'>
-                        <FaHome />
-                     </span>
-                     <span className='ml-2'>Home</span>
-                  </Link>
-                  <Link
-                     className='flex items-center px-4 py-3 mb-2 text-base font-semibold rounded-full text-black-dark dark:text-white hover:bg-blue-light hover:text-white'
-                     to='/explore'>
-                     <span className='text-xl'>
-                        <FaHashtag />
-                     </span>
-                     <span className='ml-2'>Explore</span>
-                  </Link>
-                  <Link
-                     className='flex items-center px-4 py-3 mb-2 text-base font-semibold rounded-full text-black-dark dark:text-white hover:bg-blue-light hover:text-white'
-                     to='/bookmarks'>
-                     <span className='text-xl'>
-                        <FaBookmark />
-                     </span>
-                     <span className='ml-2'>Bookmarks</span>
-                  </Link>
-                  <Link
-                     className='flex items-center px-4 py-3 mb-2 text-base font-semibold rounded-full text-black-dark dark:text-white hover:bg-blue-light hover:text-white'
+               <nav className='mt-5 px-2 h-80 mb-32'>
+                  {NavData.map((item) => {
+                     return (
+                        <>
+                           <NavLink
+                              key={item.id}
+                              activeClassName='bg-blue-light text-white'
+                              className='flex items-center px-6 py-3 mb-2 text-base font-semibold rounded-full text-black-dark dark:text-white hover:bg-blue-light hover:text-white'
+                              to={item.link}>
+                              <span className='text-xl'>{item.icon}</span>
+                              <span className='ml-2'>{item.label}</span>
+                           </NavLink>
+                        </>
+                     );
+                  })}
+                  <NavLink
+                     activeClassName='bg-blue-light text-white'
+                     className='flex items-center px-6 py-3 mb-12 text-base font-semibold rounded-full text-black-dark dark:text-white hover:bg-blue-light hover:text-white'
                      to={`/profile/${username}`}>
                      <span className='text-xl'>
                         <FaUser />
                      </span>
                      <span className='ml-2'>Profile</span>
-                  </Link>
+                  </NavLink>
 
                   <Link to='/feed'>
-                     <button className='bg-blue-dark w-full mt-5 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-full'>
+                     <button className='bg-blue-dark w-full mt-5 hover:bg-blue-dark text-white font-bold py-3 px-7 rounded-full'>
                         Tweet
                      </button>
                   </Link>
@@ -77,7 +69,6 @@ export default function NavDesktop() {
                   </Link>
                </div>
             </div>
-            <div />
          </div>
       </>
    );

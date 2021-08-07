@@ -7,8 +7,8 @@ import { handleUserSignIn } from '../../userSlice';
 export default function LogIn() {
    const navigate = useNavigate();
    const [user, setUser] = useState({
-      email: '',
-      password: '',
+      email: 'test@gmail.com',
+      password: 'Test123',
    });
 
    const { token, signInStatus, signInError } = useSelector(
@@ -43,7 +43,7 @@ export default function LogIn() {
 
    return (
       <>
-         <div className='flex max-w-sm mx-auto overflow-hidden bg-white rounded-xl shadow-lg mt-20 '>
+         <div className='flex max-w-sm m-8 mt-20 mb-20 md:mx-auto overflow-hidden bg-white rounded-xl shadow-lg '>
             <form
                className='w-full px-6 py-8 md:px-8 pt-10 pb-14'
                onSubmit={(e) => handleFormSubmit(e)}>
@@ -62,6 +62,7 @@ export default function LogIn() {
                      className='block w-full px-4 py-2 text-black-lightest bg-white border border-gray-300 rounded-md focus:border-blue-light focus:outline-none focus:ring-2'
                      type='email'
                      name='email'
+                     value={user.email}
                      onChange={(e) => handleOnChangeInput(e)}
                   />
                </div>
@@ -79,6 +80,7 @@ export default function LogIn() {
                      className='block w-full px-4 py-2 text-black-lightest bg-white border border-gray-300 rounded-md focus:border-blue-light focus:outline-none focus:ring-2'
                      type='password'
                      name='password'
+                     value={user.password}
                      onChange={(e) => handleOnChangeInput(e)}
                   />
                </div>

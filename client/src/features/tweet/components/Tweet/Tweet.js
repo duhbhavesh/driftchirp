@@ -24,9 +24,11 @@ export default function Tweet({ tweetDetails }) {
 
    return (
       <>
-         <article className='flex bg-white dark:bg-black-light text-black-dark dark:text-white m-3 rounded-md'>
-            <div className='flex flex-shrink-0 p-4 pb-0'>
-               <a href='/' className='flex-shrink-0 block'>
+         <article className='flex bg-white dark:bg-black-light text-black-dark dark:text-white mt-3 rounded-md'>
+            <div className='flex flex-shrink-0 p-2 pt-4 pb-0'>
+               <Link
+                  to={`/profile/${user.username}`}
+                  className='flex-shrink-0 block'>
                   <div className='flex items-center'>
                      <div>
                         <img
@@ -36,19 +38,23 @@ export default function Tweet({ tweetDetails }) {
                         />
                      </div>
                   </div>
-               </a>
+               </Link>
             </div>
             <div className='flex flex-col w-full'>
                <div className='ml-2 mt-3'>
                   <div className='flex items-center'>
                      <Link to={`/profile/${user.username}`}>
-                        <span className='text-base leading-6 font-medium'>
+                        <span className='text-base leading-6 font-medium truncate'>
                            {user?.firstName} {user?.lastName}
                         </span>
                      </Link>
 
-                     <span className='text-sm font-medium text-gray-400 ml-4'>
-                        @{user?.username} · {formatDate(createdAt)}
+                     <span className='text-sm font-medium text-gray-400 ml-4 truncate w-20 md:w-full'>
+                        <Link to={`/profile/${user.username}`}>
+                           @{user?.username}
+                        </Link>
+                        <span className='font-bold pl-2 pr-1'>·</span>
+                        {formatDate(createdAt)}
                      </span>
                   </div>
 

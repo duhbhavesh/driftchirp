@@ -11,7 +11,7 @@ export default function Header() {
    return (
       <>
          <header className='bg-white-dark dark:bg-black'>
-            <div className='container mx-auto flex p-3 pt-4 pl-2 pr-2 md:pl-8 md:pr-8 flex-col md:flex-row justify-between items-center'>
+            <div className='container mx-auto flex p-3 pt-4 pl-2 pr-2 md:pl-8 md:pr-8 flex-row justify-between items-center'>
                <Link
                   to='/feed'
                   className='flex title-font font-bold items-center'>
@@ -35,7 +35,7 @@ export default function Header() {
 
                   {token ? null : (
                      <Link to='/signup'>
-                        <button className='inline-flex items-center font-bold bg-blue text-white border-0 py-2 px-4 focus:outline-none hover:bg-blue-light rounded-full text-base'>
+                        <button className=' hidden md:inline-flex items-center font-bold bg-blue text-white border-0 py-2 px-4 focus:outline-none hover:bg-blue-light rounded-full text-base'>
                            Sign Up
                         </button>
                      </Link>
