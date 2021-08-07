@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaUser } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import { NavData } from './NavData';
+import TweetModal from '../../features/tweet/components/Tweet/TweetModal';
 
 export default function NavDesktop() {
    const {
       currentUser: { username, firstName, lastName },
    } = useSelector((state) => state.user);
+
+   let [isOpen, setIsOpen] = useState(false);
+
+   function handleOpenModal() {
+      setIsOpen(true);
+   }
+
+   function handleCloseModal() {
+      setIsOpen(false);
+   }
 
    return (
       <>
@@ -38,11 +49,11 @@ export default function NavDesktop() {
                      <span className='ml-2'>Profile</span>
                   </NavLink>
 
-                  <Link to='/feed'>
-                     <button className='bg-blue-dark w-full mt-5 hover:bg-blue-dark text-white font-bold py-3 px-7 rounded-full'>
-                        Tweet
-                     </button>
-                  </Link>
+                  <button
+                     onClick={() => handleOpenModal()}
+                     className='bg-blue-dark w-full mt-5 hover:bg-blue-dark text-white font-bold py-3 px-7 rounded-full'>
+                     Tweet
+                  </button>
                </nav>
 
                <div className='flex-shrink-0 flex rounded-full p-4 mb-24 mr-2'>
@@ -70,6 +81,12 @@ export default function NavDesktop() {
                </div>
             </div>
          </div>
+
+         <TweetModal
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            handleCloseModal={handleCloseModal}
+         />
       </>
    );
 }

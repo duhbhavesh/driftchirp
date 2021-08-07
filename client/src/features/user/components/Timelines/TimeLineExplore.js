@@ -5,6 +5,7 @@ import ExploreProfile from '../Explore/ExploreProfile';
 
 export default function TimeLineExplore() {
    const { users } = useSelector((state) => state.user);
+   const { currentUser } = useSelector((state) => state.user);
 
    return (
       <>
@@ -12,11 +13,13 @@ export default function TimeLineExplore() {
             <ExploreHeader />
             {users.map((user) => {
                return (
-                  <ExploreProfile
-                     key={user.id}
-                     userDetails={user}
-                     user={user}
-                  />
+                  currentUser.id !== user.id && (
+                     <ExploreProfile
+                        key={user.id}
+                        userDetails={user}
+                        user={user}
+                     />
+                  )
                );
             })}
          </div>
