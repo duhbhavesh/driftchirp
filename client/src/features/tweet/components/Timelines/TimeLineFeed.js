@@ -14,8 +14,7 @@ export default function Timeline() {
       tweetLikedStatus,
       tweetBookmarkStatus,
    } = useSelector((state) => state.tweet);
-   const { token, userFollowStatus, userUnFollowStatus, currentUser } =
-      useSelector((state) => state.user);
+   const { token, currentUser } = useSelector((state) => state.user);
    const dispatch = useDispatch();
    useEffect(() => {
       if (tweetsStatus === 'idle') {
@@ -30,22 +29,10 @@ export default function Timeline() {
    }, [tweetPostStatus]);
 
    useEffect(() => {
-      if (userFollowStatus === 'success' || userUnFollowStatus === 'success') {
-         dispatch(handleFetchFeed({ token }));
-      }
-   }, [userFollowStatus, userUnFollowStatus]);
-
-   useEffect(() => {
-      if (tweetLikedStatus === 'success') {
+      if (tweetLikedStatus === 'success' || tweetBookmarkStatus === 'success') {
          dispatch(handleFetchUser({ username: currentUser.username, token }));
       }
-   }, [tweetLikedStatus]);
-
-   useEffect(() => {
-      if (tweetBookmarkStatus === 'success') {
-         dispatch(handleFetchUser({ username: currentUser.username, token }));
-      }
-   }, [tweetBookmarkStatus]);
+   }, [tweetLikedStatus, tweetBookmarkStatus]);
 
    return (
       <>

@@ -32,7 +32,7 @@ export default function App() {
          (async function () {
             await dispatch(handleFetchUsers({ token }));
             await dispatch(handleFetchUser({ username: currentUser.username, token }));
-            await dispatch(handleFetchUserProfile({ username: currentUser.username, token }));
+            await dispatch(handleFetchUserProfile({username: currentUser.username,token,}));
          })();
       }
    }, [token]);

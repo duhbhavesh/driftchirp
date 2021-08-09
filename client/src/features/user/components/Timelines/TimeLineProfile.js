@@ -6,25 +6,22 @@ import ProfileEmpty from '../Profile/ProfileEmpty';
 import ProfileTweet from '../Profile/ProfileTweet';
 
 export default function TimeLineProfile() {
-   const { userProfile, currentUser, token } = useSelector(
-      (state) => state.user,
-   );
+   const { userProfile, currentUser, token, userProfileEditStatus } =
+      useSelector((state) => state.user);
    const { tweetLikedStatus, tweetBookmarkStatus } = useSelector(
       (state) => state.tweet,
    );
    const dispatch = useDispatch();
 
    useEffect(() => {
-      if (tweetLikedStatus === 'success') {
+      if (
+         tweetLikedStatus === 'success' ||
+         tweetBookmarkStatus === 'success' ||
+         userProfileEditStatus === 'success'
+      ) {
          dispatch(handleFetchUser({ username: currentUser.username, token }));
       }
-   }, [tweetLikedStatus]);
-
-   useEffect(() => {
-      if (tweetBookmarkStatus === 'success') {
-         dispatch(handleFetchUser({ username: currentUser.username, token }));
-      }
-   }, [tweetBookmarkStatus]);
+   }, [tweetLikedStatus, tweetBookmarkStatus, userProfileEditStatus]);
 
    return (
       <>

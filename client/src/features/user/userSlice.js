@@ -96,6 +96,7 @@ export const handleFollow = createAsyncThunk(
             Authorization: token,
          },
       });
+      console.log(response.data, 'check follow');
       return response.data;
    },
 );
@@ -111,6 +112,26 @@ export const handleUnFollow = createAsyncThunk(
          },
       });
       return response.data;
+   },
+);
+
+export const handleEditProfile = createAsyncThunk(
+   'user/handleEditProfile',
+   async ({ token, bio, website }) => {
+      const response = await axios({
+         method: 'POST',
+         url: `${API_ENDPOINT}/api/user/edit`,
+         headers: {
+            Authorization: token,
+         },
+         data: {
+            bio,
+            website,
+         },
+      });
+      console.log(response.data, 'edit user');
+      console.log(response.data.user, 'chceck edit');
+      return response.data.user;
    },
 );
 
@@ -134,6 +155,8 @@ const initialState = {
 
    userFollowStatus: 'idle',
    userUnfollowStatus: 'idle',
+
+   userProfileEditStatus: 'idle',
 };
 
 const userSlice = createSlice({
@@ -235,6 +258,15 @@ const userSlice = createSlice({
       [handleUnFollow.fulfilled]: (state, action) => {
          state.userProfile = action.payload.users;
          state.userUnfollowStatus = 'success';
+      },
+
+      [handleEditProfile.pending]: (state, action) => {
+         state.userProfileEditStatus = 'loading';
+      },
+      [handleEditProfile.fulfilled]: (state, action) => {
+         state.userProfile.bio = action.payload.bio;
+         state.userProfile.website = action.payload.website;
+         state.userProfileEditStatus = 'success';
       },
    },
 });

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProfileHeader from './ProfileHeader';
 import ProfileBio from './ProfileBio';
 import ProfileCover from './ProfileCover';
@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { handleFetchUserProfile } from '../../userSlice';
 import ProfileStats from './ProfileStats';
+import ProfileModal from './ProfileModal';
+import FollowButton from '../Buttons/FollowButton';
 
 export default function ProfileCard() {
    const { username } = useParams();
@@ -15,12 +17,21 @@ export default function ProfileCard() {
    const { token, userProfile, currentUser } = useSelector(
       (state) => state.user,
    );
+   const [isOpen, setIsOpen] = useState(false);
 
    useEffect(() => {
       if (token) {
          dispatch(handleFetchUserProfile({ username, token }));
       }
    }, []);
+
+   function handleOpenModal() {
+      setIsOpen(true);
+   }
+
+   function handleCloseModal() {
+      setIsOpen(false);
+   }
 
    return (
       <>
@@ -33,8 +44,10 @@ export default function ProfileCard() {
                      <ProfileImage />
                   </div>
                   <div className='flex flex-col text-right'>
-                     {currentUser?.id === userProfile?.id && (
-                        <ProfileEditButton />
+                     {currentUser?.id !== userProfile?.id ? (
+                        <FollowButton user={userProfile} />
+                     ) : (
+                        <ProfileEditButton handleOpenModal={handleOpenModal} />
                      )}
                   </div>
                </div>
@@ -44,6 +57,11 @@ export default function ProfileCard() {
                <ProfileStats user={userProfile} />
             </div>
          </div>
+         <ProfileModal
+            isOpen={isOpen}
+            handleCloseModal={handleCloseModal}
+            setIsOpen={setIsOpen}
+         />
       </>
    );
 }

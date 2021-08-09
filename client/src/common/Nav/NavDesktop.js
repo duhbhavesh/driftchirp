@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { FaUser } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import { NavData } from './NavData';
 import TweetModal from '../../features/tweet/components/Tweet/TweetModal';
+import { handleFetchUserProfile } from '../../features/user/userSlice';
 
 export default function NavDesktop() {
    const {
+      token,
       currentUser: { username, firstName, lastName },
    } = useSelector((state) => state.user);
+   const dispatch = useDispatch();
 
-   let [isOpen, setIsOpen] = useState(false);
+   const [isOpen, setIsOpen] = useState(false);
 
    function handleOpenModal() {
       setIsOpen(true);
@@ -30,8 +33,8 @@ export default function NavDesktop() {
                         <>
                            <NavLink
                               key={item.id}
-                              activeClassName='bg-blue-light text-white'
-                              className='flex items-center px-6 py-3 mb-2 text-base font-semibold rounded-full text-black-dark dark:text-white hover:bg-blue-light hover:text-white'
+                              activeClassName='bg-white dark:bg-black-light text-blue-light'
+                              className='flex items-center px-6 py-3 mb-2 text-base rounded-full text-black-lightest dark:text-white hover:bg-blue-lightest hover:bg-opacity-5 dark:hover:bg-black-lightest font-extrabold'
                               to={item.link}>
                               <span className='text-xl'>{item.icon}</span>
                               <span className='ml-2'>{item.label}</span>
@@ -40,9 +43,17 @@ export default function NavDesktop() {
                      );
                   })}
                   <NavLink
-                     activeClassName='bg-blue-light text-white'
-                     className='flex items-center px-6 py-3 mb-12 text-base font-semibold rounded-full text-black-dark dark:text-white hover:bg-blue-light hover:text-white'
-                     to={`/profile/${username}`}>
+                     activeClassName='bg-white dark:bg-black-light text-blue-light'
+                     className='flex items-center px-6 py-3 mb-2 text-base rounded-full text-black-lightest dark:text-white hover:bg-blue-lightest hover:bg-opacity-5 dark:hover:bg-black-lightest font-extrabold'
+                     to={`/profile/${username}`}
+                     onClick={() =>
+                        dispatch(
+                           handleFetchUserProfile({
+                              username: username,
+                              token,
+                           }),
+                        )
+                     }>
                      <span className='text-xl'>
                         <FaUser />
                      </span>
