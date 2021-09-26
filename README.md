@@ -38,18 +38,7 @@ Below are few project screens to get a glimpse of Driftchirp, feel free to check
 
 ## Installation
 
--  Clone the project
--  Install the dependencies
-
-```javascript
-$ npm install
-```
-
--  Start the development server
-
-```javascript
-$ npm start
-```
+- [Frontend Installation](https://github.com/duhbhavesh/driftchirp/tree/main/client#installation)
 
 ## License
 
