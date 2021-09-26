@@ -39,6 +39,7 @@ Below are few project screens to get a glimpse of Driftchirp, feel free to check
 ## Installation
 
 - [Frontend Installation](https://github.com/duhbhavesh/driftchirp/tree/main/client#installation)
+- [Backend Installation](https://github.com/duhbhavesh/driftchirp/tree/main/server#installation)
 
 ## License
 
