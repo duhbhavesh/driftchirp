@@ -24,6 +24,7 @@ Below are few project screens to get a glimpse of Driftchirp, feel free to check
 -  [x] View & Update Profile details.
 -  [x] Explore Profiles.
 -  [x] Dark Mode toggle.
+-  [x] Responsive Design.
 
 ## Technology Stack
 
